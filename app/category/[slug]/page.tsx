@@ -6,6 +6,10 @@ import Link from "next/link";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Heart, ChevronDown, Plus, SlidersHorizontal } from "lucide-react";
 import { useWishlist } from "../../../context/WishlistContext";
+import { useCart } from '../../../context/CartContext';
+
+// Inside component:
+
 // --- EXPANDED MOCK DATABASE ---
 
 const productDatabase: Record<string, any[]> = {
@@ -108,6 +112,9 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
   
   const [isClient, setIsClient] = React.useState(false);
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const { addToCart } = useCart();
+
+
 
   React.useEffect(() => {
     setIsClient(true);
@@ -325,15 +332,19 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
                       </button>
 
                       {/* Quickshop Button - Slide Up & Glow */}
-                      <div className="absolute bottom-4 left-4 right-4 translate-y-[150%] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] z-10">
-                        <motion.button 
-                          whileTap={{ scale: 0.95 }}
-                          onClick={(e) => e.preventDefault()}
-                          className="w-full bg-white text-gray-900 py-2.5 md:py-3 rounded-full text-[10px] md:text-[11px] font-bold tracking-widest uppercase shadow-[0_8px_20px_rgba(0,0,0,0.15)] flex items-center justify-center gap-2 hover:bg-[#7B1113] hover:text-white transition-colors duration-300"
-                        >
-                          <Plus size={14} /> QUICKSHOP
-                        </motion.button>
-                      </div>
+                     <div className="absolute bottom-4 left-4 right-4 translate-y-[150%] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] z-10">
+  <motion.button 
+    whileTap={{ scale: 0.95 }}
+    onClick={(e) => {
+      e.preventDefault(); // Prevents navigating to the product page
+      e.stopPropagation(); // Prevents parent Link triggers
+      addToCart(product);  // Adds the current product to your CartContext
+    }}
+    className="w-full bg-white text-gray-900 py-2.5 md:py-3 rounded-full text-[10px] md:text-[11px] font-bold tracking-widest uppercase shadow-[0_8px_20px_rgba(0,0,0,0.15)] flex items-center justify-center gap-2 hover:bg-[#7B1113] hover:text-white transition-colors duration-300"
+  >
+    <Plus size={14} /> QUICKSHOP
+  </motion.button>
+</div>
                       
                       {/* Subtle Dark Overlay for contrast */}
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 pointer-events-none" />

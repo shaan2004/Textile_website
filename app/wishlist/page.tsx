@@ -3,9 +3,11 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation'; // 1. Import useRouter
 import { motion, Variants } from 'framer-motion';
 import { Trash2, ShoppingBag, ArrowLeft, Heart } from 'lucide-react';
 import { useWishlist } from '../../context/WishlistContext';
+import { useCart } from '../../context/CartContext'; // 2. Import useCart
 
 // --- ANIMATION VARIANTS ---
 const containerVariants: Variants = {
@@ -29,6 +31,14 @@ const itemVariants: Variants = {
 
 export default function WishlistPage() {
   const { wishlist, removeFromWishlist } = useWishlist();
+  const { addToCart } = useCart(); // 3. Initialize Cart Hook
+  const router = useRouter();     // 4. Initialize Router
+
+  const handleMoveToCart = (item: any) => {
+    addToCart(item);             // Add to bag
+    removeFromWishlist(item.id);  // Remove from saved list
+    router.push('/cart');        // Navigate to cart page
+  };
 
   return (
     <div className="bg-[#FAF8F5] min-h-screen py-12 md:py-20 overflow-hidden">
@@ -96,6 +106,7 @@ export default function WishlistPage() {
                   
                   <motion.button 
                     whileTap={{ scale: 0.95 }}
+                    onClick={() => handleMoveToCart(item)}
                     className="mt-auto w-full border-2 border-[#4A2511] py-3 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-[#4A2511] hover:text-white transition-all duration-300 flex items-center justify-center gap-2"
                   >
                     <ShoppingBag size={14} /> Add to Cart
