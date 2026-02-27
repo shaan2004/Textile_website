@@ -38,7 +38,7 @@ export default function Home() {
 
   const categories = [
     { name: "Designer Kurtis", desc: "Everyday elegance and comfort for the modern woman.", img: "/assets/kurtiset.webp" }, 
-    { name: "Classic Churidars", desc: "Timeless grace and perfectly tailored fits.", img: "/assets/churidar.webp" },
+    { name: "Classic Churidars", desc: "Timeless grace and perfectly tailored fits.", img: "/assets/churid.webp" },
     { name: "Regal Anarkalis", desc: "Flowing silhouettes with intricate embroidery.", img: "/assets/anarkal.webp" },
     { name: "Festive Lehengas", desc: "Make a statement at your next wedding or celebration.", img: "/assets/lehangas.avif" },
   ];
