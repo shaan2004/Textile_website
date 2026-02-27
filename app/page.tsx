@@ -44,6 +44,7 @@ export default function Home() {
   ];
 
   // Mock Instagram Feed Images example
+  
   const instaFeed = [
     { id: 1, img: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=600&auto=format&fit=crop" },
     { id: 2, img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600&auto=format&fit=crop" },
